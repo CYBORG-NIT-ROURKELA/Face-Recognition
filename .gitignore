@@ -1,0 +1,10 @@
+venv/
+.env
+encodings.pickle
+
+#
+Tweaking/distance_lfw_hog.csv
+dataset
+# Joyce/
+Lucy/
+image.jpg
