@@ -9,10 +9,12 @@ import time
 import cv2
 import mediapipe as mp
 import face_recognition
+
+
 # initialize 'currentname' to trigger only when a new person is identified
 currentname = "unknown"
 # determine faces from encodings.pickle file model created from train_model.py
-encodingsP = "encodings.pickle"
+encodingsP = "picklefiles\Facenet.pickle"
 
 
 mp_face_detection = mp.solutions.face_detection
@@ -55,6 +57,7 @@ while True:
 	predictions = facedetection.process(rgb)
 	# print(predictions.detections[0].location_data.relative_bounding_box)
 	
+	boxes = []
 	if predictions.detections:
     # # looping through all the detection/faces 
 		for d in predictions.detections:
@@ -70,8 +73,8 @@ while True:
             ],
             [frame_width, frame_height, frame_width, frame_height],
         ).astype(int)
-        
-	boxes = [box]
+    
+			boxes = [box]
 	boxes = [(y, x + w, y + h, x) for (x, y, w, h) in boxes]
 
 	# print(boxes)
@@ -86,9 +89,8 @@ while True:
 	for encoding in encodings:
 		# attempt to match each face in the input image to our known
 		# encodings
-
 		matches = face_recognition.compare_faces(data["encodings"],
-			encoding,tolerance= 0.30)
+			encoding,tolerance= 0.50)
 		
 
 
@@ -106,8 +108,8 @@ while True:
 			# print(data['names'] )
 
 			# print(distance)
-			for (i,d) in enumerate(distance):
-				print(data["names"][i],":",d)
+			# for (i,d) in enumerate(distance):
+			# 	print(data["names"][i],":",d)
 
 			# find the indexes of all matched faces then initialize a
 			# dictionary to count the total number of times each face
