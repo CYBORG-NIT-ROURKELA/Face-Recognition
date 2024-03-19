@@ -3,8 +3,9 @@ venv/
 encodings.pickle
 
 #
-Tweaking/distance_lfw_hog.csv
-dataset
+# Tweaking/distance_lfw_hog.csv
+# dataset
+detectedfaces/
+distancefiles/
+Tweaking/
 # Joyce/
-Lucy/
-image.jpg
