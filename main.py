@@ -5,7 +5,7 @@ import pickle
 import face_recognition
 import time
 from collections import defaultdict
-from imutils.video import VideoStream
+from deepface.commons import distance as dst
 import numpy as np
 
 def get_embedding(frame):
@@ -55,7 +55,8 @@ while True:
             names = []
 
             matches = face_recognition.compare_faces(database["encodings"], encoding, tolerance=0.5)
-            
+            # distance = dst.findEuclideanDistance(encoding,)
+            distance = []
             max_name = "Unknown" # if face is not recognized, then print Unknown
             if True in matches:
 
@@ -63,9 +64,12 @@ while True:
                 counts = defaultdict(int)
                 
                 for i in matchedIdxs:
+                    disc = dst.findEuclideanDistance(database["encodings"][i], encoding)
                     counts[database["names"][i]] += 1
+                    distance.append(disc)
                     
                 print(counts)
+                print(distance)
                 
                 for name in counts:
                     if counts[name] >= 6:
